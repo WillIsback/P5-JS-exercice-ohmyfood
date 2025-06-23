@@ -27,7 +27,12 @@ export default function Home() {
         <div className={styles.restaurantsContent}>
           <h2>Restaurants</h2>
           <div className={styles.restaurantGrid}>
-            
+          {restaurants.map((restaurant) => (
+              <RestaurantCard
+                key={restaurant.id}
+                {...restaurant}
+              />
+            ))}
           </div>
         </div>
       </section>
