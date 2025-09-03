@@ -1,16 +1,14 @@
-'use client';
 
-import { useState } from 'react';
-
-export default function RestaurantHeader({ name }) {
-  const [isLiked, setIsLiked] = useState(false);
-
+export default function RestaurantHeader({ name, handleAddFavorite, id, isLiked }) {
+  function handleClick() {
+    handleAddFavorite(!isLiked, id);
+  }
   return (
     <div className="restaurantHeader">
       <h2 className="restaurantName">{name}</h2>
       <button 
         className={`favoriteButton ${isLiked ? 'liked' : ''}`}
-        onClick={() => setIsLiked(!isLiked)}
+        onClick={handleClick}
         aria-label={isLiked ? "Retirer des favoris" : "Ajouter aux favoris"}
       >
         <svg 
