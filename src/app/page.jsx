@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import Steps from "@/components/Steps/Steps";
 import RestaurantCard from "@/components/RestaurantCard/RestaurantCard";
 import {restaurants} from "@/data/restaurants.json";
+import Link from 'next/link'
 
 export default function Home() {
   const [favorites, setFavorites] = useState({});
@@ -50,12 +51,14 @@ export default function Home() {
           <h2>Restaurants</h2>
           <div className={styles.restaurantGrid}>
             {restaurants.map((item) => (
-              <RestaurantCard 
-                handleAddFavorite={handleAddFavorite}
-                isLiked={favorites[item.id] || false}
-                className={styles.restaurantCard} 
-                key={item.id} 
-                restaurant={item}/>
+              <Link key={item.id} href={`/restaurant/${item.slug}`}>
+                <RestaurantCard 
+                  handleAddFavorite={handleAddFavorite}
+                  isLiked={favorites[item.id] || false}
+                  className={styles.restaurantCard} 
+                  key={item.id} 
+                  restaurant={item}/>
+              </Link>
             ))}
           </div>
         </div>

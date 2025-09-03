@@ -7,6 +7,8 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { faSquareCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { faSquareCaretUp } from '@fortawesome/free-solid-svg-icons';
 
+
+
 {/* <FontAwesomeIcon icon={faSquareCaretDown} /> */}
 export default function RestaurantCard({className, restaurant, handleAddFavorite, isLiked}){
     const [menuData, setMenuData] = useState([]);
