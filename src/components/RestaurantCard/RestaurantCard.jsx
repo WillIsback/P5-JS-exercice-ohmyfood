@@ -1,76 +1,53 @@
-import { useState, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import RestaurantHeader from '../RestaurantHeader/RestaurantHeader';
-import MenuItem from '../MenuItem/MenuItem';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
-import { faSquareCaretDown } from '@fortawesome/free-solid-svg-icons';
-import { faSquareCaretUp } from '@fortawesome/free-solid-svg-icons';
+'use client';
+import Link from 'next/link';
+import Image from 'next/image';
+import styles from './RestaurantCard.module.css';
+import { useState } from 'react';
 
+export default function RestaurantCard({ name, slug, location, image, isNew = false }) {
+  const [isLiked, setIsLiked] = useState(false);
 
-
-{/* <FontAwesomeIcon icon={faSquareCaretDown} /> */}
-export default function RestaurantCard({className, restaurant, handleAddFavorite, isLiked}){
-    const [menuData, setMenuData] = useState([]);
-    const [open, setOpen] = useState(false);
-
-
-    useEffect(() => {
-        const data = Object.entries(restaurant.menu)
-            .flatMap(([type, items]) =>
-                items.map(item => ({ ...item, id: uuidv4(), type }))
-            );
-        setMenuData(data);
-    }, [restaurant.menu]);
-
-    return(
-        <article className={className}>
-            <RestaurantHeader name={restaurant.name} handleAddFavorite={handleAddFavorite} id={restaurant.id} isLiked={isLiked}/>
-            <div className='cardContent'>
-                <section>
-                    <FontAwesomeIcon icon={faLocationDot} /> {restaurant.location}  
-                </section>
-                {restaurant.isNew && <aside> <b>Nouveauté</b> ✨</aside>}
-            </div>
-            <h3>
-                {    
-                    restaurant.slug
-                        .replaceAll('-', ' ')
-                        .replace(/^./, c => c.toUpperCase())
-                }
-            </h3>
-            <figure>
-                <img src={restaurant.image} 
-                    alt={`image de plat du restaurant ${restaurant.name}`}
-                    title={`image de plat du restaurant ${restaurant.name}`} 
-                />
-                {/* <figcaption>{`image de plat du restaurant ${restaurant.name}`}</figcaption> */}
-            </figure>
-            <div className='Menu'>
-                <button 
-                    className="toggleLabel"
-                    onClick={() => setOpen(!open)}
-                    aria-expanded={open}
-                    aria-controls="menu-restaurant-slug"
-                >
-                {open ? (
-                    <span>
-                        Marquer la carte <FontAwesomeIcon icon={faSquareCaretUp} />
-                    </span>
-                ) : (
-                    <span>
-                        Voir la carte <FontAwesomeIcon icon={faSquareCaretDown} />
-                    </span>
-                )}    
-                </button>
-                {open && (
-                    <section className="fold" id="menu-restaurant-slug">
-                        {menuData.map((item, index) => (
-                            <MenuItem key={item.id} item={item} index={index} />
-                        ))}
-                    </section>
-                )}
-            </div>
-        </article>
-    );
-}
+  return (
+    <article className={styles.card}>
+      <div className={styles.imageContainer}>
+        <Link href={`/restaurant/${slug}`}>
+        <Image
+          src={image}
+          alt={name}
+          fill
+          className={styles.image}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
+        </Link>
+        {isNew && <span className={styles.newBadge}>Nouveau</span>}
+      </div>
+      <div className={styles.content}>
+        <Link href={`/restaurant/${slug}`}>
+        <h3 className={styles.name}>{name}</h3>
+        <p className={styles.location}>{location}</p>
+        </Link>
+      </div>
+      <button 
+        className={`${styles.favoriteButton} ${isLiked ? styles.liked : ''}`}
+        onClick={() => setIsLiked(!isLiked)}
+        aria-label={isLiked ? "Retirer des favoris" : "Ajouter aux favoris"}
+      >
+        <svg 
+          viewBox="0 0 24 24" 
+          fill={isLiked ? "url(#gradient)" : "none"} 
+          stroke="currentColor" 
+          strokeWidth="2"
+          className={styles.heartIcon}
+        >
+          <defs>
+            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#FF79DA" />
+              <stop offset="100%" stopColor="#9356DC" />
+            </linearGradient>
+          </defs>
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+      </button>
+    </article>
+  );
+} 

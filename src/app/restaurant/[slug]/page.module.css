@@ -1,0 +1,99 @@
+.main {
+    background-color: #FFFF;
+}
+
+.banniereRestaurant {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.banniereRestaurant img {
+    width: 100%;
+    height: 383px;
+    box-sizing: border-box;
+    object-fit:cover;
+    margin: 0;
+}
+
+.carteRestaurant {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 1055px;
+    min-height: 1221px;
+    background-color: #F6F6F6;
+    border-radius: 60px;
+    margin-top: -60px;
+    position: relative;
+    z-index: 2;
+    gap: 40px;
+}
+
+.en_tete {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+.en_tete h2 {
+    color: var(--Black, #101010);
+    font-family: Shrikhand;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.foodList {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    gap: 12px;
+
+}
+
+.foodList h3 {
+  color: #000000;
+  font-family: "Roboto-Light", Helvetica;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: normal;
+}
+.foodList h3::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: #99E2D0;
+  margin-top: 8px;
+  
+}
+
+
+/* style de la page 404 */
+.errorPage {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top : 40px;
+    gap: 40px
+
+}
+
+.errorPage a {
+    text-decoration: none;
+    color: #9356DC;
+}
+
+.errorPage a:hover {
+    color: #2809d6;
+    font-weight: bold;
+}
