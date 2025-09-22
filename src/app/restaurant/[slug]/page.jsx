@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 import MenuItem from "@/components/MenuItem/MenuItem";
 import FavoriteButton from "@/components/FavoriteButton/FavoriteButton"; // Composant client séparé
 import { notFound } from 'next/navigation'
-
+import OrderButton from "@/components/OrderButton/OrderButton";
 
 async function fetchRestaurant(slug) {
   const restaurant = restaurants.find(r => r.slug === slug);
@@ -19,7 +19,7 @@ export default async function Restaurant({ params }) {
   if (!restaurant) {
     notFound()
   }
-  
+
   // Lecture du cookie côté serveur
   const cookieStore = await cookies();
   const favoritesCookie = cookieStore.get("favorites")?.value;
@@ -76,6 +76,7 @@ export default async function Restaurant({ params }) {
             ))}
           </div>
         </section>
+          <OrderButton />
       </article>
     </main>
   );

@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 import Steps from "@/components/Steps/Steps";
 import RestaurantCard from "@/components/RestaurantCard/RestaurantCard";
 import {restaurants} from "@/data/restaurants.json";
-import Link from 'next/link'
+
 
 export default function Home() {
 
